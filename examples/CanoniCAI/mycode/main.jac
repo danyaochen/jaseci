@@ -30,23 +30,24 @@ graph faq {
 }
 
 walker ask {
+    can use.qa_classify;
     has question;
     root {
-        question = std.input("AMA > ");
+        question = std.input(">");
         take --> node::faq_root;
     }
     faq_root {
-        take --> node::faq_state(question==question);
+        answers = -->.answer;
+        best_answer = use.qa_classify(
+            text = question,
+            classes = answers
+        );
+        take --> node::faq_state(answer==best_answer["match"]);
     }
-    faq_state {:
+    faq_state {
         std.out(here.answer);
     }
 }
-
-faq_answer_1 = spawn node::faq_state(
-    question="How do I configure my order?",
-    answer="To configure your order, log into your Tesla account.",
-);
 
 walker init {
     root {
