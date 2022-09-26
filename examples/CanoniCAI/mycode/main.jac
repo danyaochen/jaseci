@@ -1,4 +1,4 @@
-import {*} with "./tesla_ai.jac"
+import {*} with "./tesla_ai.jac";
 
 graph faq {
     has anchor faq_root;
