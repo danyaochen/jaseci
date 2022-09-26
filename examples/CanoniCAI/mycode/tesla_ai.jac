@@ -1,4 +1,5 @@
 node dialogue_root;
+node faq_root;
 
 edge entity_transition {
     has entities;
